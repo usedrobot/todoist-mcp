@@ -1,0 +1,53 @@
+{
+  "name": "@usedrobot/todoist-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for Todoist using a personal API token over stdio. No OAuth, no reauth, full REST + Sync API coverage.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "todoist-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "todoist",
+    "claude",
+    "claude-code",
+    "anthropic",
+    "stdio"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usedrobot/todoist-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/usedrobot/todoist-mcp/issues"
+  },
+  "homepage": "https://github.com/usedrobot/todoist-mcp#readme",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@doist/todoist-sdk": "^10.1.5",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.8.0",
+    "tsx": "^4.22.0",
+    "typescript": "^6.0.3"
+  }
+}

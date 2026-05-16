@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "todoist": {
+      "command": "npx",
+      "args": ["-y", "@usedrobot/todoist-mcp"],
+      "env": {
+        "TODOIST_API_TOKEN": "your_token_here"
+      }
+    }
+  }
+}
