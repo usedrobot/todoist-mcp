@@ -41,12 +41,18 @@ export function registerFilterTools(server: McpServer, api: TodoistApi): void {
     },
     async (args) =>
       run(async () => {
-        const commands = args.filters.map((f) =>
+        // Todoist Sync API requires temp_id on all *_add commands. We map ours to a sequential
+        // placeholder; the response's tempIdMapping carries the real ID for each created filter.
+        const commands = args.filters.map((f, i) =>
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          createCommand("filter_add", f as any),
+          createCommand("filter_add", f as any, `tmp-${Date.now()}-${i}`),
         );
         const res = await api.sync({ commands });
         return {
+          created: Object.entries(res.tempIdMapping ?? {}).map(([tempId, id]) => ({
+            tempId,
+            id,
+          })),
           tempIdMapping: res.tempIdMapping,
           syncStatus: res.syncStatus,
         };

@@ -166,6 +166,16 @@ Hot-reload during development:
 TODOIST_API_TOKEN=<your_token> npm run dev
 ```
 
+### Testing
+
+The repo ships with an end-to-end integration suite (`tests/integration.ts`) that spawns the built server, connects via the MCP client SDK over stdio, and exercises every tool against your real Todoist account. It creates a sandbox project for writes and deletes it on teardown.
+
+```bash
+TODOIST_API_TOKEN=<your_token> npm test
+```
+
+Expected on a non-workspace (personal Pro) account: ~58 pass, 0 fail, ~14 skipped. The skips are environmental: workspace-only tools require a Todoist Business plan, shared-label and location-reminder writes are destructive on real data so they're intentionally not exercised, and file uploads are not part of the suite.
+
 ## License
 
 MIT — see [LICENSE](./LICENSE).

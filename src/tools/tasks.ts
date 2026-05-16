@@ -36,12 +36,17 @@ export function registerTaskTools(server: McpServer, api: TodoistApi): void {
             limit: args.limit,
           });
         }
+        // The SDK serializes `ids: string[]` as a JSON array in the query string, which the
+        // Todoist v1 API can't parse. Iterate via getTask() instead.
+        if (args.ids && args.ids.length > 0) {
+          const results = await Promise.all(args.ids.map((id) => api.getTask(id)));
+          return { results, nextCursor: null };
+        }
         return api.getTasks({
           projectId: args.projectId,
           sectionId: args.sectionId,
           parentId: args.parentId,
           label: args.label,
-          ids: args.ids,
           cursor: args.cursor ?? null,
           limit: args.limit,
         });

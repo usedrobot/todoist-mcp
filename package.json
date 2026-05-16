@@ -17,6 +17,7 @@
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
     "typecheck": "tsc --noEmit",
+    "test": "tsx tests/integration.ts",
     "prepublishOnly": "npm run build"
   },
   "keywords": [

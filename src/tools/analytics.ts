@@ -18,7 +18,9 @@ export function registerAnalyticsTools(server: McpServer, api: TodoistApi): void
     "get-project-activity-stats",
     {
       description:
-        "Get activity statistics for a project. Defaults to last 2 weeks of completed item events.",
+        "Get activity statistics for a project. Defaults to last 2 weeks of completed item events. " +
+        "NOTE: This endpoint only works for projects inside a Todoist Workspace (paid Business plan). " +
+        "Personal projects return HTTP 400.",
       inputSchema: {
         projectId: z.string(),
         objectType: z.string().optional().describe("ITEM | PROJECT | NOTE (default ITEM)"),
@@ -45,7 +47,8 @@ export function registerAnalyticsTools(server: McpServer, api: TodoistApi): void
     "get-project-health",
     {
       description:
-        "Get health score and indicators for a project (overdue tasks, stale tasks, etc).",
+        "Get health score and indicators for a project (overdue tasks, stale tasks, etc). " +
+        "NOTE: Workspace projects only.",
       inputSchema: { projectId: z.string() },
     },
     async (args) => run(async () => api.getProjectHealth(args.projectId)),
@@ -54,7 +57,8 @@ export function registerAnalyticsTools(server: McpServer, api: TodoistApi): void
   server.registerTool(
     "get-project-health-context",
     {
-      description: "Get detailed context behind a project's health indicators.",
+      description:
+        "Get detailed context behind a project's health indicators. NOTE: Workspace projects only.",
       inputSchema: { projectId: z.string() },
     },
     async (args) => run(async () => api.getProjectHealthContext(args.projectId)),
@@ -63,7 +67,8 @@ export function registerAnalyticsTools(server: McpServer, api: TodoistApi): void
   server.registerTool(
     "get-project-progress",
     {
-      description: "Get completion-progress summary for a project.",
+      description:
+        "Get completion-progress summary for a project. NOTE: Workspace projects only.",
       inputSchema: { projectId: z.string() },
     },
     async (args) => run(async () => api.getProjectProgress(args.projectId)),
