@@ -23,13 +23,16 @@ The official Doist server uses browser-based OAuth, which times out hourly. The 
 
 ## Install
 
-Requires Node.js 20+.
+Requires Node.js 20+. Not on npm yet — clone and build locally:
 
 ```bash
-npm install -g @usedrobot/todoist-mcp
+git clone https://github.com/usedrobot/todoist-mcp
+cd todoist-mcp
+npm install
+npm run build
 ```
 
-Or use without installing via `npx`.
+The built entry point lives at `dist/index.js`. Point your MCP client at that.
 
 ## Get your API token
 
@@ -40,25 +43,14 @@ Or use without installing via `npx`.
 
 ## Configure your MCP client
 
+Replace `/absolute/path/to/todoist-mcp` below with wherever you cloned the repo.
+
 ### Claude Code
 
 ```bash
-claude mcp add todoist -- npx -y @usedrobot/todoist-mcp \
-  --env TODOIST_API_TOKEN=<your_token>
-```
-
-Or add it to `~/.claude/mcp.json` manually:
-
-```json
-{
-  "mcpServers": {
-    "todoist": {
-      "command": "npx",
-      "args": ["-y", "@usedrobot/todoist-mcp"],
-      "env": { "TODOIST_API_TOKEN": "<your_token>" }
-    }
-  }
-}
+claude mcp add -s user todoist \
+  --env TODOIST_API_TOKEN=<your_token> \
+  -- node /absolute/path/to/todoist-mcp/dist/index.js
 ```
 
 ### Claude Desktop
@@ -69,8 +61,8 @@ Or add it to `~/.claude/mcp.json` manually:
 {
   "mcpServers": {
     "todoist": {
-      "command": "npx",
-      "args": ["-y", "@usedrobot/todoist-mcp"],
+      "command": "node",
+      "args": ["/absolute/path/to/todoist-mcp/dist/index.js"],
       "env": { "TODOIST_API_TOKEN": "<your_token>" }
     }
   }
@@ -85,8 +77,8 @@ Or add it to `~/.claude/mcp.json` manually:
 {
   "mcpServers": {
     "todoist": {
-      "command": "npx",
-      "args": ["-y", "@usedrobot/todoist-mcp"],
+      "command": "node",
+      "args": ["/absolute/path/to/todoist-mcp/dist/index.js"],
       "env": { "TODOIST_API_TOKEN": "<your_token>" }
     }
   }
